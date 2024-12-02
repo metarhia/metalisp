@@ -12,6 +12,25 @@
 - Install: `npm install metalisp`
 - Require: `const metalisp = require('metalisp')`
 
+```js
+const { evaluate } = require('metalisp');
+
+const program = '(+ 2 (* x 5) (- y 2))';
+const context = { x: 3, y: 7 };
+const result = evaluate(program, context);
+```
+
+## Operators
+
+- **`+`**: Adds two or more numbers.
+- **`-`**: Subtracts the second and subsequent numbers from the first.
+- **`*`**: Multiplies two or more numbers.
+- **`/`**: Divides the first number by the second and subsequent numbers.
+- **`eq`**: Checks for strict equality between two values, returning `true` if equal, `false` otherwise.
+- **`list`**: Creates and returns a list (array) of the provided arguments.
+- **`car`**: Returns the first element (head) of a list.
+- **`cdr`**: Returns the remainder (tail) of a list after removing the first element.
+
 ## License & Contributors
 
 Copyright (c) 2017-2024 [Metarhia contributors](https://github.com/metarhia/metalisp/graphs/contributors).
