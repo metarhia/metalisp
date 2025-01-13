@@ -46,3 +46,17 @@ test('Evaluate cdr (tail of list)', () => {
   const expected = [3, 1];
   assert.deepStrictEqual(result, expected, 'cdr (tail of list) failed');
 });
+
+test('Evaluate equality with t', () => {
+  const program = '(eq (eq 3 3) t)';
+  const result = evaluate(program, {});
+  const expected = true;
+  assert.strictEqual(result, expected, 'Equality with t failed');
+});
+
+test('Evaluate equality with nil', () => {
+  const program = '(eq (eq 3 4) nil)';
+  const result = evaluate(program, {});
+  const expected = true;
+  assert.strictEqual(result, expected, 'Equality with nil failed');
+});

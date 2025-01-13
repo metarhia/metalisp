@@ -1,5 +1,5 @@
 export type List = Array<unknown>;
-export type Value = number | string;
+export type Value = number | string | boolean;
 export type Result = List | Value;
 export type Operator = (...list: List) => Result;
 export type LispContext = Record<string, unknown>;
@@ -12,6 +12,11 @@ export const OPERATORS: Record<string, Operator>;
 
 export interface Expression {
   interpret(context: LispContext): Value;
+}
+
+export class BooleanExpression implements Expression {
+  constructor(value: string);
+  interpret(context: LispContext): boolean;
 }
 
 export class NumberExpression implements Expression {
