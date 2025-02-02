@@ -3,6 +3,7 @@ export type Value = number | string | boolean;
 export type Result = List | Value;
 export type Operator = (...list: List) => Result;
 export type LispContext = Record<string, unknown>;
+export type Clause = { condition: Expression; consequents: Expression[] };
 
 export function listp(list: unknown): boolean;
 export function head(list: List): Result;
@@ -31,6 +32,11 @@ export class VariableExpression implements Expression {
 
 export class OperationExpression implements Expression {
   constructor(operator: string, operands: List);
+  interpret(context: LispContext): Value;
+}
+
+export class ConditionExpression implements Expression {
+  constructor(clauses: Clause[]);
   interpret(context: LispContext): Value;
 }
 

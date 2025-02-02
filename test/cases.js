@@ -60,3 +60,17 @@ test('Evaluate equality with nil', () => {
   const expected = true;
   assert.strictEqual(result, expected, 'Equality with nil failed');
 });
+
+test('Evaluate cond (has a match)', () => {
+  const program = '(cond ((eq x 100)(+ 6 5)(list 1 4)) ((eq y x)(list 5 7)))';
+  const result = evaluate(program, { x: 99, y: 99 });
+  const expected = [5, 7];
+  assert.deepStrictEqual(result, expected, 'cond failed');
+});
+
+test('Evaluate cond (no match)', () => {
+  const program = '(cond ((eq x 100)(+ 6 5)(list 1 4)) ((eq y x)(list 5 7)))';
+  const result = evaluate(program, { x: 99, y: 98 });
+  const expected = false;
+  assert.strictEqual(result, expected, 'cond failed');
+});
