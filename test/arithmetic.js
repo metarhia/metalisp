@@ -1,6 +1,7 @@
 'use strict';
 const assert = require('node:assert');
 const { describe, it } = require('node:test');
+
 const { evaluate } = require('..');
 
 describe('Arithmetic operators', () => {
