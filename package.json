@@ -20,7 +20,7 @@
     "metalisp.d.ts"
   ],
   "engines": {
-    "node": "18 || 20 || 21 || 22 || 23"
+    "node": ">=18"
   },
   "repository": {
     "type": "git",
