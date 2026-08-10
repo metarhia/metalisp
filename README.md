@@ -33,6 +33,6 @@ const result = evaluate(program, context);
 
 ## License & Contributors
 
-Copyright (c) 2017-2024 [Metarhia contributors](https://github.com/metarhia/metalisp/graphs/contributors).
+Copyright (c) 2017-2026 [Metarhia contributors](https://github.com/metarhia/metalisp/graphs/contributors).
 Metalisp is [MIT licensed](./LICENSE).\
 Metalisp is a part of [Metarhia](https://github.com/metarhia) technology stack.
