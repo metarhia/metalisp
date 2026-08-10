@@ -43,11 +43,11 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
-    "eslint": "^9.16.0",
+    "eslint": "^9.39.5",
     "eslint-config-metarhia": "^9.1.1",
     "metatests": "^0.9.0",
-    "prettier": "^3.4.1",
-    "typescript": "^5.7.2",
-    "metavm": "^1.4.2"
+    "metavm": "^1.4.2",
+    "prettier": "^3.9.6",
+    "typescript": "^5.9.3"
   }
 }
