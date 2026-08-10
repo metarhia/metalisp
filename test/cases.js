@@ -2,6 +2,7 @@
 
 const assert = require('node:assert');
 const test = require('node:test');
+
 const { evaluate } = require('..');
 
 test('Evaluate arithmetic expressions', () => {

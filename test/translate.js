@@ -2,6 +2,7 @@
 
 const assert = require('node:assert');
 const test = require('node:test');
+
 const metavm = require('metavm');
 const { tokenize, parse } = require('..');
 
