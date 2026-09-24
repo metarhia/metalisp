@@ -8,7 +8,7 @@ const { tokenize, parse } = require('..');
 
 test('Translate LISP to JavaScript', () => {
   const program = '(+ 2 (* x 5) (- y 2))';
-  const tokens = tokenize(program);
+  const [tokens] = tokenize(program);
   const src = parse(tokens).toJavaScript();
   const ms = metavm.createScript('Function', src);
   const f = ms.exports;

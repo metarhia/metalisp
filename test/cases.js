@@ -1,9 +1,11 @@
 'use strict';
 
 const assert = require('node:assert');
+const fs = require('node:fs');
+const path = require('node:path');
 const test = require('node:test');
 
-const { evaluate } = require('..');
+const { evaluate, tokenize } = require('..');
 
 test('Evaluate arithmetic expressions', () => {
   const program = '(+ 2 (* x 5) (- y 2))';
@@ -60,4 +62,38 @@ test('Evaluate equality with nil', () => {
   const result = evaluate(program, {});
   const expected = true;
   assert.strictEqual(result, expected, 'Equality with nil failed');
+});
+
+test('Evaluate multiple top-level forms', () => {
+  const program = '(+ 1 2)\n(* 3 4)';
+  const result = evaluate(program);
+  const expected = 12;
+  assert.strictEqual(result, expected, 'Multiple top-level forms failed');
+});
+
+test('Tokenize multiple top-level forms', () => {
+  const source = fs.readFileSync(path.join(__dirname, 'example.lisp'), 'utf8');
+  const forms = tokenize(source);
+  const expected = [
+    ['layer', 'domain', ['aggregate', '"orderAggregate.js"']],
+    ['layer', 'infrastructure', ['orderStore', '"memoryOrders.js"']],
+    [
+      'layer',
+      'application',
+      [
+        'purchase',
+        '"placeOrder.js"',
+        ['order', 'domain.aggregate'],
+        ['catalog', 'infrastructure.products'],
+        ['orders', 'infrastructure.orderStore'],
+      ],
+    ],
+    [
+      'layer',
+      'presentation',
+      ['terminal', '"commandLine.js"', ['checkout', 'application.purchase']],
+    ],
+    ['entry', 'presentation.terminal'],
+  ];
+  assert.deepStrictEqual(forms, expected, 'Reading example.lisp failed');
 });
