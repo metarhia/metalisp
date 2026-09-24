@@ -35,5 +35,5 @@ export class OperationExpression implements Expression {
 }
 
 export function parse(tokens: string | List): Expression;
-export function tokenize(source: string): List;
+export function tokenize(source: string): Array<string | List>;
 export function evaluate(input: string, context?: LispContext): Value;
