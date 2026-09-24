@@ -1,0 +1,13 @@
+(layer domain
+  (aggregate "orderAggregate.js"))
+(layer infrastructure
+  (orderStore "memoryOrders.js"))
+(layer application
+  (purchase "placeOrder.js"
+    (order domain.aggregate)
+    (catalog infrastructure.products)
+    (orders infrastructure.orderStore)))
+(layer presentation
+  (terminal "commandLine.js"
+    (checkout application.purchase)))
+(entry presentation.terminal)
