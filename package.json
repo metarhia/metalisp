@@ -42,12 +42,10 @@
     "fix": "eslint . --fix && prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.ts\""
   },
   "devDependencies": {
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.20.4",
     "eslint": "^9.39.5",
-    "eslint-config-metarhia": "^9.1.1",
-    "metatests": "^0.9.0",
+    "eslint-config-metarhia": "^9.2.1",
     "metavm": "^1.4.2",
-    "prettier": "^3.9.6",
-    "typescript": "^5.9.3"
+    "prettier": "^3.9.9"
   }
 }
