@@ -72,8 +72,8 @@ test('Evaluate multiple top-level forms', () => {
 });
 
 test('Tokenize multiple top-level forms', () => {
-  const source = fs.readFileSync(path.join(__dirname, 'example.lisp'), 'utf8');
-  const forms = tokenize(source);
+  const program = fs.readFileSync(path.join(__dirname, 'example.lisp'), 'utf8');
+  const result = tokenize(program);
   const expected = [
     ['layer', 'domain', ['aggregate', '"orderAggregate.js"']],
     ['layer', 'infrastructure', ['orderStore', '"memoryOrders.js"']],
@@ -95,5 +95,9 @@ test('Tokenize multiple top-level forms', () => {
     ],
     ['entry', 'presentation.terminal'],
   ];
-  assert.deepStrictEqual(forms, expected, 'Reading example.lisp failed');
+  assert.deepStrictEqual(
+    result,
+    expected,
+    'Tokenize multiple top-level forms failed',
+  );
 });

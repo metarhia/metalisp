@@ -12,8 +12,12 @@ test('Translate LISP to JavaScript', () => {
   const src = parse(tokens).toJavaScript();
   const ms = metavm.createScript('Function', src);
   const f = ms.exports;
-  assert.strictEqual(f.toString(), '(x, y) => (2+(x*5)+(y-2))');
+  assert.strictEqual(
+    f.toString(),
+    '(x, y) => (2+(x*5)+(y-2))',
+    'Translation to JavaScript failed',
+  );
   const result = f(3, 7);
   const expected = 22;
-  assert.strictEqual(result, expected);
+  assert.strictEqual(result, expected, 'Translated function failed');
 });

@@ -101,7 +101,7 @@ test('Evaluate remainder', () => {
   const context = { x: -1, y: 5 };
   const result = evaluate(program, context);
   const expected = -1 % 5;
-  assert.strictEqual(result, expected, 'Reminder operator failed');
+  assert.strictEqual(result, expected, 'Remainder operator failed');
 });
 
 test('Evaluate increment', () => {
@@ -149,7 +149,7 @@ test('Evaluate increment shortcut', () => {
   const context = { x: 1 };
   const result = evaluate(program, context);
   const expected = 1 + 1;
-  assert.strictEqual(result, expected, 'Increment shortcut operator fail');
+  assert.strictEqual(result, expected, 'Increment shortcut operator failed');
 });
 
 test('Evaluate decrement shortcut', () => {
@@ -157,7 +157,7 @@ test('Evaluate decrement shortcut', () => {
   const context = { x: 1 };
   const result = evaluate(program, context);
   const expected = 1 - 1;
-  assert.strictEqual(result, expected, 'Decrement shortcut operator fail');
+  assert.strictEqual(result, expected, 'Decrement shortcut operator failed');
 });
 
 test('Evaluate complex arithmetic expression', () => {
