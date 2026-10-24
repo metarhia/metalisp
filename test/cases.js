@@ -101,3 +101,9 @@ test('Tokenize multiple top-level forms', () => {
     'Tokenize multiple top-level forms failed',
   );
 });
+
+test('Tokenize unbalanced closing parenthesis', () => {
+  const program = '(a))(b)';
+  const expected = { name: 'SyntaxError', message: 'Unexpected )' };
+  assert.throws(() => tokenize(program), expected, 'Unbalanced ) failed');
+});
