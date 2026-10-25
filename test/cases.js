@@ -107,3 +107,10 @@ test('Tokenize unbalanced closing parenthesis', () => {
   const expected = { name: 'SyntaxError', message: 'Unexpected )' };
   assert.throws(() => tokenize(program), expected, 'Unbalanced ) failed');
 });
+
+test('Evaluate unknown operator', () => {
+  const expected = { name: 'Error', message: 'Unknown operator: foo' };
+  assert.throws(() => evaluate('(foo 1 2)'), expected);
+  const inherited = { name: 'Error', message: 'Unknown operator: toString' };
+  assert.throws(() => evaluate('(toString)'), inherited);
+});
