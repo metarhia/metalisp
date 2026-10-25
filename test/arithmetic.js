@@ -103,7 +103,37 @@ test('Evaluate multiplication and division on bigint', () => {
   const context = { x: 6n, y: 3n };
   assert.strictEqual(evaluate('(* x y)', context), 18n);
   assert.strictEqual(evaluate('(/ x y)', context), 2n);
-  assert.strictEqual(evaluate('(/ x)', context), 6n);
+});
+
+test('Evaluate division with single argument as reciprocal', () => {
+  const program = '(/ x)';
+  const context = { x: 4 };
+  const result = evaluate(program, context);
+  const expected = 0.25;
+  assert.strictEqual(result, expected, 'Division operator failed');
+});
+
+test('Evaluate subtraction and division without arguments', () => {
+  const expected = {
+    name: 'TypeError',
+    message: 'Expected at least one number',
+  };
+  assert.throws(() => evaluate('(-)'), expected);
+  assert.throws(() => evaluate('(/)'), expected);
+});
+
+test('Evaluate arithmetic on non-numeric arguments', () => {
+  const context = { x: '2' };
+  const expected = { name: 'TypeError', message: 'Expected numeric operands' };
+  assert.throws(() => evaluate('(/ 10 nil)'), expected);
+  assert.throws(() => evaluate('(+ 1 x)', context), expected);
+  assert.throws(() => evaluate('(1+ t)'), expected);
+});
+
+test('Evaluate modulus and remainder by zero', () => {
+  const expected = { name: 'Error', message: 'Division by zero' };
+  assert.throws(() => evaluate('(mod 5 0)'), expected);
+  assert.throws(() => evaluate('(rem 5 0)'), expected);
 });
 
 test('Evaluate modulus', () => {

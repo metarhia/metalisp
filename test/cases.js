@@ -114,3 +114,23 @@ test('Evaluate unknown operator', () => {
   const inherited = { name: 'Error', message: 'Unknown operator: toString' };
   assert.throws(() => evaluate('(toString)'), inherited);
 });
+
+test('Tokenize unbalanced opening parenthesis', () => {
+  const program = '(a (b)';
+  const expected = { name: 'SyntaxError', message: 'Unexpected end of input' };
+  assert.throws(() => tokenize(program), expected, 'Unbalanced ( failed');
+});
+
+test('Evaluate number syntax', () => {
+  assert.strictEqual(evaluate('(+ 1.5e2 .5 +3 1. -4)'), 150.5);
+  const context = { '0x10': 7, Infinity: 8 };
+  assert.strictEqual(evaluate('0x10', context), 7);
+  assert.strictEqual(evaluate('Infinity', context), 8);
+});
+
+test('Evaluate inherited names as variables', () => {
+  const program = '(eq toString x)';
+  const context = { toString: 5, x: 5 };
+  const result = evaluate(program, context);
+  assert.strictEqual(result, true, 'Inherited name is not a boolean');
+});

@@ -21,3 +21,17 @@ test('Translate LISP to JavaScript', () => {
   const expected = 22;
   assert.strictEqual(result, expected, 'Translated function failed');
 });
+
+test('Translate LISP operators with Common Lisp semantics', () => {
+  const translate = (program) => parse(tokenize(program)[0]).toJavaScript();
+  assert.strictEqual(translate('(- x)'), '(x) => (-x)');
+  assert.strictEqual(translate('(/ x)'), '(x) => (1/x)');
+  assert.strictEqual(translate('(- x -5)'), '(x) => (x-(-5))');
+  assert.strictEqual(translate('(mod x y)'), '(x, y) => (((x%y)+y)%y)');
+  assert.strictEqual(translate('(< x y z)'), '(x, y, z) => (x<y&&y<z)');
+  assert.strictEqual(translate('(= x y)'), '(x, y) => (x===y)');
+  const f = metavm.createScript('Mod', translate('(mod x y)')).exports;
+  assert.strictEqual(f(-1, 5), 4);
+  const expected = { message: 'Cannot translate operator: eq' };
+  assert.throws(() => translate('(eq x y)'), expected);
+});
