@@ -76,6 +76,36 @@ test('Evaluate division on more than two arguments', () => {
   assert.strictEqual(result, expected, 'Division operator failed');
 });
 
+test('Evaluate division with zero dividend', () => {
+  const program = '(/ x y)';
+  const context = { x: 0, y: 5 };
+  const result = evaluate(program, context);
+  const expected = 0;
+  assert.strictEqual(result, expected, 'Division operator failed');
+});
+
+test('Evaluate division by zero', () => {
+  const program = '(/ x y)';
+  const context = { x: 5, y: 0 };
+  const expected = { name: 'Error', message: 'Division by zero' };
+  assert.throws(() => evaluate(program, context), expected);
+});
+
+test('Evaluate division from left to right', () => {
+  const program = '(/ x y z)';
+  const context = { x: 1e300, y: 1e200, z: 1e200 };
+  const result = evaluate(program, context);
+  const expected = 1e300 / 1e200 / 1e200;
+  assert.strictEqual(result, expected, 'Division operator failed');
+});
+
+test('Evaluate multiplication and division on bigint', () => {
+  const context = { x: 6n, y: 3n };
+  assert.strictEqual(evaluate('(* x y)', context), 18n);
+  assert.strictEqual(evaluate('(/ x y)', context), 2n);
+  assert.strictEqual(evaluate('(/ x)', context), 6n);
+});
+
 test('Evaluate modulus', () => {
   const program = '(mod x y)';
   const context = { x: 20, y: 10 };
@@ -252,4 +282,33 @@ test('Evaluate lcm on no arguments', () => {
   const result = evaluate(program);
   const expected = 1;
   assert.strictEqual(result, expected, 'LCM operator failed');
+});
+
+test('Evaluate gcd and lcm with zero argument', () => {
+  const context = { x: 5, y: 0 };
+  assert.strictEqual(evaluate('(gcd x y)', context), 5);
+  assert.strictEqual(evaluate('(gcd y y)', context), 0);
+  assert.strictEqual(evaluate('(lcm x y)', context), 0);
+  assert.strictEqual(evaluate('(lcm y y)', context), 0);
+});
+
+test('Evaluate gcd and lcm on negative arguments', () => {
+  const context = { x: 20, y: -10 };
+  assert.strictEqual(evaluate('(gcd x y)', context), 10);
+  assert.strictEqual(evaluate('(lcm x y)', context), 20);
+});
+
+test('Evaluate lcm on large arguments', () => {
+  const program = '(lcm x y)';
+  const context = { x: 94906267, y: 94906267 };
+  const result = evaluate(program, context);
+  const expected = 94906267;
+  assert.strictEqual(result, expected, 'LCM operator failed');
+});
+
+test('Evaluate gcd and lcm on non-integer arguments', () => {
+  const context = { x: 0.5, y: NaN };
+  const expected = { name: 'TypeError', message: 'Expected integer operands' };
+  assert.throws(() => evaluate('(gcd x 2)', context), expected);
+  assert.throws(() => evaluate('(lcm y 2)', context), expected);
 });
